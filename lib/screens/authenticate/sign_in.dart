@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/screens/authenticate/forgot_pswd.dart';
 import 'package:myapp/services/auth.dart';
 
 class SignIn extends StatefulWidget {
@@ -29,9 +30,9 @@ class _SignInState extends State<SignIn> {
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
-                      child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+           child: Column(
+          //  crossAxisAlignment: CrossAxisAlignment.center,
+          //  mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
                 SizedBox(
                       height: 225,
@@ -43,7 +44,11 @@ class _SignInState extends State<SignIn> {
                     ),
               SizedBox(height: 20.0),
               /*Champs Email*/ 
-              TextFormField(
+              Material(
+                elevation: 6.5,
+                 borderRadius: BorderRadius.circular(30.0),
+                child: 
+                TextFormField(
                     obscureText: false,
                     //TEXT 
                    style: TextStyle(
@@ -68,9 +73,15 @@ class _SignInState extends State<SignIn> {
                   setState(() => email = val);
                 },
               ),
-              /*Champs Mot de passe*/ 
+              ), 
+              
+            /*Champs Mot de passe*/ 
               SizedBox(height: 20.0),
-              TextFormField(
+              Material(
+                elevation: 6.5,
+                 borderRadius: BorderRadius.circular(30.0),
+                child : 
+                 TextFormField(
                 obscureText: true,
                     //TEXT 
                    style: TextStyle(
@@ -95,6 +106,37 @@ class _SignInState extends State<SignIn> {
                   setState(() => password = val);
                 },
               ),
+            /*Champs Mot de passe*/
+              ), 
+              
+          
+          /*Mot de passe oublié*/
+            SizedBox(height: 10),
+            Material(
+
+               child: FlatButton(
+              child:  
+              Text("Mot de passe oublié ?",
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                      color: const Color(0xff7966ff),
+                      fontFamily: "Roboto-light",
+                      fontStyle:  FontStyle.normal,
+                      fontSize: 12.0
+                  ),
+              ),
+              onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Forgotpswd()),
+            );
+          },
+            ),
+            ), 
+            
+          /*Mot de passe oublié*/
+
+            /*CONNEXION*/ 
               SizedBox(height: 20.0),
               Material(
                 borderRadius: BorderRadius.circular(30.0),
@@ -126,6 +168,41 @@ class _SignInState extends State<SignIn> {
                 }
               ),
               ), 
+           /*CONNEXION*/ 
+           /*Mot de passe oublié*/ 
+           ButtonBar(
+             children: <Widget>[
+             FlatButton(
+             child: Text("Pas encore memebre,",
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                      color: const Color(0xde3d3d3d),
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Roboto",
+                      fontStyle:  FontStyle.normal,
+                      fontSize: 12.0
+                  ),
+              ), onPressed: () {},  
+           ),
+             FlatButton( 
+             child: 
+              Text("inscivez vous",
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                      color: const Color(0xff00838f),
+                      fontFamily: "Roboto-light",
+                      fontStyle:  FontStyle.normal,
+                      fontSize: 12.0
+                  ),
+              ),
+            onPressed: () => widget.toggleView(), 
+          ),
+             ],
+           ), 
+           SizedBox(height: 11), 
+           
+         
+           /*Mot de passe oublié*/ 
               //Message d'erreur à la connexion 
               SizedBox(height: 12.0),
               Text(
@@ -134,6 +211,7 @@ class _SignInState extends State<SignIn> {
               ),
             ],
           ),
+
           ), 
 
         ),
