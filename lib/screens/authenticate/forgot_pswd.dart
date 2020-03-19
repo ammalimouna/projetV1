@@ -17,7 +17,7 @@ class _ForgotpswdState extends State<Forgotpswd> {
   // text field state
   String email = '';
   
-
+ /* Mot de passe */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
