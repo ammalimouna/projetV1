@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/services/auth.dart';
 
@@ -14,6 +15,9 @@ class _RegisterState extends State<Register> {
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>(); //pour identifier le formulaire 
+  final TextEditingController _pass = TextEditingController();
+  final TextEditingController _confirmPass = TextEditingController();
+
   // text field state
   String email = '';
   String password = '';
@@ -22,56 +26,152 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.purple[300],
-        elevation: 0.0,
-        title: Text('Inscrivez vous '),
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Sign In'),
-            onPressed: () => widget.toggleView(),
-          ),
-        ],
-      ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: Form(
           key : _formKey, //associer formkey à form
+        child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              SizedBox(height: 20.0),
-              TextFormField(
-                validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                onChanged: (val) {
+             /*Champs Email*/ 
+             SizedBox(height: 242),
+              Material(
+                elevation: 4,
+                 borderRadius: BorderRadius.circular(30.0),
+                child: 
+                TextFormField(
+                    obscureText: false,
+                    //TEXT 
+                   style: TextStyle(
+                      color:  Colors.grey[900], 
+                      fontFamily: "Roboto",
+                      fontStyle:  FontStyle.normal,
+                      fontSize: 16.0
+                    ), 
+                    //SHAPE
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: "Email",
+                        suffixIcon: Icon (
+                          Icons.email, 
+                          color:  Colors.teal[800],
+                        ),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))
+                  ),
+                  //Validation de l'entrée 
+                  validator: (val) => val.isEmpty ? 'Entrez votre email' : null,
+                  onChanged: (val) {
                   setState(() => email = val);
                 },
               ),
-              SizedBox(height: 20.0),
-              TextFormField(
-                validator: (val) => val.length <6  ? 'Mot de passe Invalide' : null,
-
+              ), 
+            /*Champs Email*/ 
+              SizedBox(height: 12.0),
+            /*Champs Mot de passe*/ 
+              Material(
+                elevation: 4,
+                 borderRadius: BorderRadius.circular(30.0),
+                child : 
+                 TextFormField(
                 obscureText: true,
+                    //TEXT 
+                   style: TextStyle(
+                      color:  Colors.grey[900], 
+                      fontFamily: "Roboto",
+                      fontStyle:  FontStyle.normal,
+                      fontSize: 16.0
+                    ), 
+                    //SHAPE
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: "Mot de passe",
+                        suffixIcon: Icon (
+                            Icons.remove_red_eye, 
+                            color:  Colors.teal[800],
+                        ),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))
+                  ),
+                  //Validation de l'entrée
+                controller: _pass,
+                validator: (val) => val.length < 6 ? 'Mot de passe érroné' : null,
                 onChanged: (val) {
                   setState(() => password = val);
                 },
               ),
-              SizedBox(height: 20.0),
-              RaisedButton(
-                color: Colors.black,
-                child: Text(
-                  'Register',
-                  style: TextStyle(color: Colors.white),
+              ),
+            /*Champs Mot de passe*/
+            SizedBox(height: 12),
+            /*Champs Confirmation Mot de passe*/ 
+              Material(
+                elevation: 4,
+                 borderRadius: BorderRadius.circular(30.0),
+                child : 
+                 TextFormField(
+                obscureText: true,
+                    //TEXT 
+                   style: TextStyle(
+                      color:  Colors.grey[900], 
+                      fontFamily: "Roboto",
+                      fontStyle:  FontStyle.normal,
+                      fontSize: 16.0
+                    ), 
+                    //SHAPE
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: "Confirmez votre mot de passe",
+                        suffixIcon: Icon (
+                            Icons.remove_red_eye, 
+                            color:  Colors.teal[800],
+                        ),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))
+                  ),
+                  controller: _confirmPass,
+                  //Validation de l'entrée
+                  validator: (val){
+                              if(val.isEmpty)
+                                   return 'Empty';
+                              if(val != _pass.text)
+                                   return 'Not Match';
+                              return null;
+                              }, 
+                onChanged: (val) {
+                  setState(() => password = val);
+                },
+              ),
+              ),
+            /*Champs Confirmation Mot de passe*/ 
+
+              SizedBox(height: 70.0),
+              Material(
+                borderRadius: BorderRadius.circular(30.0),
+                color: Colors.deepOrange,
+                child: 
+                MaterialButton(
+                minWidth: 174,
+                height: 36,
+                child: 
+                Text("SUIVANT",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color:  const Color(0xffffffff),
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Roboto",
+                      fontStyle:  FontStyle.normal,
+                      fontSize: 16.0
+                  ),
                 ),
                 onPressed: () async {
                   if(_formKey.currentState.validate()){
                     dynamic result = await _auth.registerWithEmailAndPassword(email, password); 
+                    FirebaseUser user= result; //a revoir 
+                     user.sendEmailVerification();  
                     if(result==null){
                         setState(()=> error = 'Entrez un e-mail valide' );
                     }
                   }
                 }
               ),
+              ), 
               SizedBox(height: 12.0),
               Text(
                 error,
@@ -79,6 +179,8 @@ class _RegisterState extends State<Register> {
               )
             ],
           ),
+        ),
+          
         ),
       ),
     );

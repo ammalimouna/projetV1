@@ -23,19 +23,16 @@ class _ForgotpswdState extends State<Forgotpswd> {
     return Scaffold(
        appBar: AppBar(
         backgroundColor: Colors.deepOrange,
-        elevation: 5.0,
+        elevation: 0.0,
         title: Text('Réinitialisation du mot de passe ',
           textAlign: TextAlign.left,
           style: TextStyle(
             color: Colors.white,
                       fontFamily: "Roboto-light",
                       fontStyle:  FontStyle.normal,
-                      fontSize: 17.0,
-                      
+                      fontSize: 17.0,    
             ), 
-        ),
-        
-      
+        ),     
       ),
       body: Container(
         color: Colors.white,
@@ -47,6 +44,7 @@ class _ForgotpswdState extends State<Forgotpswd> {
           //  crossAxisAlignment: CrossAxisAlignment.center,
           //  mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              /*lOGO*/ 
                 SizedBox(
                       height: 225,
                       width: 159,
@@ -55,11 +53,23 @@ class _ForgotpswdState extends State<Forgotpswd> {
                         fit: BoxFit.contain,
                       ),
                     ),
-              SizedBox(height: 20.0),
+              Material(
+                
+                child: SizedBox(
+                      height: 25,
+                      
+                      child: Text('Entrez votre email',
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+              ), 
+               
+
+              SizedBox(height: 0.0),
               /*Champs Email*/ 
               Material(
-                elevation: 6.5,
-                 borderRadius: BorderRadius.circular(30.0),
+                elevation: 4,
+                borderRadius: BorderRadius.circular(30.0),
                 child: 
                 TextFormField(
                     obscureText: false,
@@ -88,7 +98,7 @@ class _ForgotpswdState extends State<Forgotpswd> {
               ),
               ), 
             /*CONNEXION*/ 
-              SizedBox(height: 20.0),
+              SizedBox(height: 30.0),
               Material(
                 borderRadius: BorderRadius.circular(30.0),
                 color: Colors.deepOrange,
