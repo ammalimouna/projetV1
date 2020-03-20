@@ -255,6 +255,13 @@ void onPhoneNumberChange(String number, String internationalizedPhoneNumber, Str
                 }
               ),
               ), 
+              Material(
+              child: InternationalPhoneInput(
+          onPhoneNumberChange: onPhoneNumberChange, 
+          initialPhoneNumber: phoneNumber,
+          initialSelection: phoneIsoCode,
+          enabledCountries: ['+233', '+1']
+       ),), 
               SizedBox(height: 12.0),
               Text(
                 error,
