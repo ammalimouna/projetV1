@@ -22,7 +22,16 @@ class _RegisterFormState extends State<RegisterForm> {
   String nom= '';
   String prenom = '';
   String utilisateur = '';
-  String error =''; 
+  String error ='';
+  String phoneNumber;
+String phoneIsoCode;
+
+void onPhoneNumberChange(String number, String internationalizedPhoneNumber, String isoCode) {
+    setState(() {
+       phoneNumber = number;
+       phoneIsoCode = isoCode;
+    });
+} 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
