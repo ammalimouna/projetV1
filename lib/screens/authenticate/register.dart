@@ -26,15 +26,108 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+    
+      
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+        
         child: Form(
           key : _formKey, //associer formkey à form
         child: SingleChildScrollView(
+          
           child: Column(
             children: <Widget>[
+             SizedBox(height: 130),
+         ButtonBar(
+            alignment:MainAxisAlignment.center,
+
+          children: <Widget>[
+            
+          Material(
+             elevation: 4,
+              borderRadius: BorderRadius.circular(30.0),
+           //   color: Colors.red,  
+             child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: SizedBox(
+                    height: 53,
+                    width: 53,
+                    child: RaisedButton(
+                        child: Text('1', 
+                        style: const TextStyle(
+                     color:  const Color(0xff26a69a),
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Roboto",
+                      fontStyle:  FontStyle.normal,
+                      fontSize: 16.0
+                  ),),
+                           
+                            shape: StadiumBorder(side: BorderSide(color:  const Color(0xff26a69a))),
+                            color: Colors.white,
+                                onPressed: () {},
+                            ),
+                        ),
+                    ),
+          ),
+          SizedBox(width: 20,), 
+          Material(
+             elevation: 4,
+              borderRadius: BorderRadius.circular(30.0),
+              color: Colors.red,  
+             child: FittedBox(
+                fit: BoxFit.scaleDown,
+                
+                child: SizedBox(
+                    height: 53,
+                    width: 53,
+                    child: RaisedButton(
+                        child: Text('2', 
+                        style: const TextStyle(
+                     color:  const Color(0xff26a69a),
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Roboto",
+                      fontStyle:  FontStyle.normal,
+                      fontSize: 16.0
+                  ),),
+                           
+                            shape: StadiumBorder(side: BorderSide(color:  const Color(0xff26a69a))),
+                            color: Colors.white,
+                                onPressed: () {},
+                            ),
+                        ),
+                    ),
+          ),
+          SizedBox(width: 20,), 
+          Material(
+             elevation: 4,
+              borderRadius: BorderRadius.circular(30.0),
+              color: Colors.red,  
+             child: FittedBox(
+                fit: BoxFit.scaleDown,
+                
+                child: SizedBox(
+                    height: 53,
+                    width: 53,
+                    child: RaisedButton(
+                        child: Text('3', 
+                        style: const TextStyle(
+                     color:  const Color(0xff26a69a),
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Roboto",
+                      fontStyle:  FontStyle.normal,
+                      fontSize: 16.0
+                  ),),
+                           
+                            shape: StadiumBorder(side: BorderSide(color:  const Color(0xff26a69a))),
+                            color: Colors.white,
+                                onPressed: () {},
+                            ),
+                        ),
+                    ),
+          ),
+             ], ), 
              /*Champs Email*/ 
-             SizedBox(height: 242),
+             SizedBox(height: 76),
               Material(
                 elevation: 4,
                  borderRadius: BorderRadius.circular(30.0),
@@ -162,9 +255,7 @@ class _RegisterState extends State<Register> {
                 ),
                 onPressed: () async {
                   if(_formKey.currentState.validate()){
-                    dynamic result = await _auth.registerWithEmailAndPassword(email, password); 
-                    FirebaseUser user= result; //a revoir 
-                     user.sendEmailVerification();  
+                    dynamic result = await _auth.registerWithEmailAndPassword(email, password);   
                     if(result==null){
                         setState(()=> error = 'Entrez un e-mail valide' );
                     }
