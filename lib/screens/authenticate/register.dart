@@ -81,15 +81,12 @@ class _RegisterState extends State<Register> {
                     height: 53,
                     width: 53,
                     child: RaisedButton(
-                        child: Text('2', 
-                        style: const TextStyle(
-                     color:  const Color(0xff26a69a),
-                      fontWeight: FontWeight.w500,
-                      fontFamily: "Roboto",
-                      fontStyle:  FontStyle.normal,
-                      fontSize: 16.0
-                  ),),
-                           
+                      
+                    child: Icon(
+                    Icons.check,
+                    size: 24,
+                    color: const Color(0xff26a69a),
+                   ),                   
                             shape: StadiumBorder(side: BorderSide(color:  const Color(0xff26a69a))),
                             color: Colors.white,
                                 onPressed: () {},
@@ -101,7 +98,6 @@ class _RegisterState extends State<Register> {
           Material(
              elevation: 4,
               borderRadius: BorderRadius.circular(30.0),
-              color: Colors.red,  
              child: FittedBox(
                 fit: BoxFit.scaleDown,
                 
@@ -133,6 +129,7 @@ class _RegisterState extends State<Register> {
                  borderRadius: BorderRadius.circular(30.0),
                 child: 
                 TextFormField(
+                  
                     obscureText: false,
                     //TEXT 
                    style: TextStyle(
@@ -149,7 +146,7 @@ class _RegisterState extends State<Register> {
                           Icons.email, 
                           color:  Colors.teal[800],
                         ),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
                   ),
                   //Validation de l'entrée 
                   validator: (val) => val.isEmpty ? 'Entrez votre email' : null,
@@ -164,6 +161,7 @@ class _RegisterState extends State<Register> {
               Material(
                 elevation: 4,
                  borderRadius: BorderRadius.circular(30.0),
+                 color: Colors.white,
                 child : 
                  TextFormField(
                 obscureText: true,
@@ -182,11 +180,11 @@ class _RegisterState extends State<Register> {
                             Icons.remove_red_eye, 
                             color:  Colors.teal[800],
                         ),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), )
                   ),
                   //Validation de l'entrée
                 controller: _pass,
-                validator: (val) => val.length < 6 ? 'Mot de passe érroné' : null,
+                validator: (val) => val.length < 6 ? 'Mot de passe invalide' : null,
                 onChanged: (val) {
                   setState(() => password = val);
                 },
@@ -211,7 +209,7 @@ class _RegisterState extends State<Register> {
                     //SHAPE
                     decoration: InputDecoration(
                         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        hintText: "Confirmez votre mot de passe",
+                        hintText: "Confirmez le mot de passe",
                         suffixIcon: Icon (
                             Icons.remove_red_eye, 
                             color:  Colors.teal[800],
